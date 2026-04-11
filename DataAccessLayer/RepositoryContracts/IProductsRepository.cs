@@ -12,7 +12,7 @@ public interface IProductsRepository
     /// Retrieves all products asynchronously.
     /// </summary>
     /// <returns>The task result contains an enumerable collection of products. The collection will be empty if no products are available.</returns>
-        Task<IEnumerable<Product>> GetProducts();
+    Task<IEnumerable<Product>> GetProducts();
 
     /// <summary>
     /// Retrieves all products based on the specified condition asynchronously.

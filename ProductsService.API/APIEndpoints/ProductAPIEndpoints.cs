@@ -20,13 +20,17 @@ public static class ProductAPIEndpoints
         app.MapGet("/api/products/search/product-id/{ProductID:guid}", async (IProductsService productsService, Guid ProductID) => {
             ProductResponse? product = await productsService.GetProductbyCondition(p => p.ProductID == ProductID);
 
+            if (product == null)
+            {
+                return Results.NotFound();
+            }
+
             return Results.Ok(product);
         });
 
         //GET /api/products/search/xxxxxxxxxxxxxxxxxx
         app.MapGet("/api/products/search/{SearchString}", async (IProductsService productsService, string SearchString) =>
         {
-            Console.WriteLine($"Debug =====: {SearchString}");
             List<ProductResponse?> productsByProductName = await productsService.GetProductsbyCondition(temp => temp.ProductName != null && temp.ProductName.Contains(SearchString));
 
             List<ProductResponse?> productsByCategory = await productsService.GetProductsbyCondition(temp => temp.Category != null && temp.Category.Contains(SearchString));
